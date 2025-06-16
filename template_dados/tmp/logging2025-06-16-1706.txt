@@ -1,0 +1,104 @@
+2025-06-16 17:51:10,168 utils        INFO     
+
+2025-06-16 17:51:10,169 utils        INFO     Showing unique values for specified columns...
+2025-06-16 17:51:10,170 utils        INFO     Unique values in classificacao_ocorrencia: ['incidente' 'acidente' 'incidente grave']
+2025-06-16 17:51:10,172 utils        INFO     Unique values in nome_municipio: ['Juazeiro do Norte' 'Uberlândia' 'Guarulhos' ... 'Ferros' 'Arcoverde'
+ 'Bocaiúva']
+2025-06-16 17:51:10,173 utils        INFO     Unique values in sigla_uf: ['CE' 'MG' 'SP' 'RS' 'DF' 'AL' 'GO' 'RJ' 'PA' 'MA' 'MT' 'AM' 'PB' 'RR'
+ 'BA' 'PR' 'PE' 'RN' 'TO' 'SE' 'MS' 'RO' '' 'SC' 'ES' 'AP' 'AC' 'PI']
+2025-06-16 17:51:10,174 utils        INFO     Unique values in nome_pais: ['Brasil']
+2025-06-16 17:51:10,179 utils        INFO     Unique values in sigla_aerodromo: ['FAER' 'SBUL' 'SBGR' 'SBSM' 'SBSR' 'SBBR' 'SBMO' 'SBGO' 'SBJR' 'NCAD'
+ 'SBSL' 'SBGL' 'SBEG' 'SBRP' 'SBSV' 'SBRJ' 'SBME' 'SWPD' 'SBPJ' 'SBFZ'
+ 'SNAO' 'SBAR' 'SBSP' 'SBNV' 'SIRQ' 'SIFM' 'SJRT' 'ZZZZ' 'SI8Y' 'SBPV'
+ 'SBCT' 'SBRF' 'SBKP' 'SD7S' 'SBIP' 'SBMI' 'SW2A' 'SNKB' 'SBPA' 'SBPS'
+ 'SBFL' 'SBJV' 'SBRD' 'SBCB' 'SBNF' 'SBVT' 'SDBK' 'SIPJ' 'SBCH' 'SIVU'
+ 'SBCY' 'SBTF' 'SBFI' 'SD6X' 'SDVG' 'SWGN' 'SD2D' 'SBCF' 'SBPG' 'SWPF'
+ 'SBNM' 'SBMT' 'SBML' 'SBSI' 'SBBE' 'SBSG' 'SBPF' 'SWFN' 'SNJL' 'SBFS'
+ 'SJGU' 'SBBI' 'SIVQ' 'SBMQ' 'SNPA' 'SNRU' 'SBCP' 'SWUQ' 'SDYT' 'SSAY'
+ 'SDJO' 'SBMA' 'SBJH' 'SDCO' 'SBAE' 'SBJA' 'SIG7' 'SJNP' 'SBCX' 'SBCG'
+ 'SDPW' 'SNWD' 'SSDK' 'SBRB' 'SBMK' 'SBES' 'SWNS' 'SBLO' 'SSKW' 'SDIH'
+ 'SSNG' 'SJXG' 'SDUB' 'SJSN' 'SBTE' 'SJA6' 'SIC2' 'SDB8' 'SBBH' 'SBJD'
+ 'SIDR' 'SNNU' 'SWJW' 'SDAM' 'SDIM' 'SWLC' 'SDLU' 'SDVH' 'SWEI' 'SBCZ'
+ 'SWPY' 'SIK7' 'SWAE' 'SBSJ' 'SSPL' 'SBZM' 'SJX9' 'SSSR' 'SJWQ' 'SBAU'
+ 'SBCA' 'SNIB' 'SSTV' 'SBVC' 'SSPG' 'SDAG' 'SDTK' 'SBJU' 'SNOU' 'SBMG'
+ 'SDUN' 'SILI' 'SBBP' 'SBSN' 'SWEE' 'SDCD' 'SNTY' 'SNXK' 'SDXJ' 'SNYP'
+ 'SSVW' 'SBTU' 'SWQG' 'SND4' 'SWBC' 'SSPS' 'SSXR' 'SJLU' 'SWMK' 'SSSS'
+ 'SWXM' 'SWFR' 'SBPL' 'SBTC' 'SNBM' 'SSBN' 'SSBG' 'SBDN' 'SIAQ' 'SSKK'
+ 'SDJV' 'SSLW' 'SBIL' 'SNCA' 'SWPI' 'SBUR' 'SSCN' 'SJEA' 'SSNH' 'SDRK'
+ 'SDAA' 'SDMJ' 'SSIE' 'SDOI' 'SBJP' 'SBCJ' 'SBUY' 'SSTE' 'SBIZ' 'SWBV'
+ 'SBFN' 'SN7H' 'SD7E' 'SIUY' 'SBBU' 'SNTB' 'SBPO' 'SICJ' 'SSRS' 'SSKG'
+ 'SIK6' 'SBBV' 'SSJA' 'SBMS' 'SIFO' 'SBBQ' 'SJEK' 'SIHW' 'SDMY' 'SBPK'
+ 'SJOG' 'SIHC' 'SBHT' 'SISW' 'SSER' 'SWTP' 'SDZG' 'SBCR' 'SBUA' 'SBCN'
+ 'SWSX' 'SDTB' 'SDZH' 'SNSM' 'SWZY' 'NIID' 'SWEB' 'SIMB' 'SIZC' 'SBKG'
+ 'SBUG' 'SJ7J' 'SBTT' 'SNDH' 'SIVJ' 'SD8G' 'SI9Z' 'SBAT' 'SD48' 'SJ2S'
+ 'SDAI' 'SSLT' 'SIPH' 'SI6H' 'SJH2' 'SDZC' 'SDX7' 'SWEO' 'SWCA' 'SBGV'
+ 'SWJA' 'SJXD' 'SSOS' 'SNHW' 'SDRS' 'SSIJ' 'SBBG' 'SDP8' 'SWLV' 'SNVR'
+ 'SDNY' 'SNVS' 'SSDP' 'SIQE' 'SJPR' 'SBSO' 'SWIT' 'SJSH' 'SIFC' 'SSKT'
+ 'SIOZ' 'SSRB' 'SICM' 'SWTS' 'SJCM' 'SNIF' 'SWPC' 'SJQI' 'SBJF' 'SSVL'
+ 'SSCW' 'SSVI' 'SIPB' 'SWWA' 'SNEJ' 'SBNT' 'SWEJ' 'SD8A' 'SNZA' 'APUA'
+ 'SJYG' 'SDIY' 'SJQN' 'SD8H' 'SDW6' 'SNHD' 'SNRX' 'SBLJ' 'SDQ4' 'SSQQ'
+ 'SNBA' 'SBOQ' '9PKD' 'SWFX' 'SJVO' 'SWJN' 'SBPR' 'SSUM' 'SBIT' 'SWEQ'
+ 'SSAP' 'SWXJ' 'SDRP' 'SBTA' 'SDNE' 'SSET' 'SBQE' 'SWUZ' 'SSHA' 'SDRQ'
+ 'SSIM' 'SWME' 'SNGI' '9PEB' 'SDRJ' 'SNHN' 'SIEK' 'SNGW' 'SDLP' 'SNHH'
+ 'SSMK' 'SNAX' 'SNFX' 'SBST' 'SIAN' 'SWGW' 'SWLB' 'SIPO' 'SNDC' 'SBSC'
+ 'SSOG' 'SJEH' 'SDFD' 'SWPM' 'SDIG' 'SNHS' 'SISN' 'SBJI' 'SNQV' 'SBTG'
+ 'SWMV' 'SIRI' 'SNIT' 'SSPI' 'SDRC' 'SNMH' 'SWLW' 'SSOT' 'SDEN' 'SNPO'
+ 'SDBB' 'SIUD' 'SDDR' 'SJVX' 'SDRV' 'SDAE' 'SBVH' 'SSGP' 'SD6Y' 'SNDV'
+ 'SIBK' 'SDZS' 'SSZR' 'SIFQ' 'SSWF' 'SSOL' 'SBPP' 'SBAX' 'SSFB' 'SJLJ'
+ 'SWGL' 'SNCT' 'SSCE' 'SSBL' 'SILQ' 'SIZM' 'SIFW' 'SSQZ' 'SILT' 'SBIH'
+ 'SWHP' 'SJPT' 'SWNG' 'SJNC' 'SBEK' 'SWON' 'SJOD' 'SSCD' 'SSPO' 'SIXE'
+ 'SNLM' 'SDIP' 'SSCL' 'SBTV' 'SWNH' 'SJBX' 'SIMQ' 'SNGA' 'SWXV' 'SWXQ'
+ '9PBS' 'SISY' 'SDUL' 'SNCJ' 'SIVB' 'SJGL' 'SSRA' 'SWEN' 'SBMD' 'SJIJ'
+ 'SNDT' 'SWVW' 'SWRW' 'SBVG' 'SSFE' 'SJLY' 'SNRP' 'SWEK' 'SSCK' 'SSXO'
+ 'SSUL' '9PAA' 'SNAS' 'SBJC' 'SSKZ' 'SSOK' 'SDYJ' 'SNAL' '9PSD' 'SBGW'
+ 'SNPC' 'SSSC' 'SDJA' 'SWGI' 'SJVL' 'SDEM' 'SJIF' 'SSGG' 'SDLY' 'SDET'
+ 'SDIO' 'SNLF' 'SDVK' 'SNIZ' 'SDVO' 'SIXZ' 'SIBO' 'SDLL' 'SSVA' 'SWMZ'
+ 'SDGB' 'SNQX' 'SILC' 'SDSC' 'SWEW' 'SSGA' 'SSUB' 'SDGR' 'SNJK' 'SJAH'
+ 'SWVC' 'SDNB' 'SNME' 'SSAN' 'SNWC' 'SWYV' 'SJBH' 'SNOF' 'SBGP' 'SWFV'
+ 'SNCV' 'SJBY' 'SDQG' 'SNBR' 'SWJP' 'SNMA' 'SSMW' 'SIJY' 'SNJR' 'SNGX'
+ 'SNDU' 'SNMD' 'SNJI' 'SDDN' 'SSMH' '9PHD' 'SDPA' 'SNGS' 'SBLE' 'SNSH'
+ 'SWUV' 'SWSI' 'SNPY' 'SWEF' 'SJBM' 'SDGX' 'SSGB' 'SIXD' 'SNGQ' 'SBTR'
+ 'SSZL' 'SBPB' 'SNDP' 'SDOW' 'SJXM' 'SSNV' 'SSGX' 'SWVI' 'SNKH' 'SWVR'
+ 'SDTF' 'SNJO' 'SWVZ' 'SNTO' 'SDNH' '5JTI' 'SNFS' 'SSFC' 'SDEE' 'SWKT'
+ 'SNPD' 'SNMU' 'SIBH' 'SBAQ' 'SWSL' 'SWGC' 'SDXF' 'SDKH' 'SDTO' 'SJFM'
+ 'SWNK' 'SDNI' 'SSKM' 'SSJL' 'SNNL' 'SWIN' 'SSBR' 'SBPC' 'SWPQ' 'SDLZ'
+ 'SSSE' 'SIQH' '9PFC' 'SNCX' 'SWRZ' 'SJNQ' 'SSSZ' 'SNLO' 'SDVI' 'SNYR'
+ 'SSPB' 'SING' 'SIQK' 'SD4V' 'SIFV' 'SSQI' 'SSAK' 'SNJN' 'SDZX' 'SDPG'
+ 'SNPX' 'SDWU' 'SSJN' 'SSVS' 'SNMM' 'SJJJ' 'SIAE' 'SNUH' 'SWNO' 'SWAT'
+ 'SIOE' 'SDNQ' 'SBCM' 'SDGY' 'SJDA' 'SNJX' 'SWWU' 'SIQV' 'SDZD' 'SSKS'
+ 'SWQC' 'SDMC' 'SWOK' 'SJGJ' 'SIVN' 'SWGM' 'SDIL' 'SIMK' 'SWYW' 'SNYS'
+ 'SJLO' 'SDYF' 'SWAQ' 'SDBN' 'SBFE' 'SWQI' 'SIKC' 'SNSG' 'SWPA' 'SSPV'
+ 'SJDU' 'SWRD' 'SWMO' 'SDJL' 'SNHB' 'SWRO' 'SNBS' 'SDMH' 'SNOG' 'SDWC'
+ 'SSJI' 'SNJD' 'SWKO' 'SNKF' 'SIPY' 'SNVC' 'SDMM' 'SDVE' 'SWBE' 'SWMW'
+ 'SDEH' 'SNXW' 'SJYR' 'SNCW' 'SBTD' 'SSAU' 'SDJC' 'SSCP' 'SNXR' 'SSIQ'
+ 'SNHE' 'SSAC' 'SNGG' 'SNMX' 'SSPX' 'SDWV' 'SNBO' 'SNCL' 'SDED' 'SNFE'
+ 'SSNB' 'SIRS' 'SIBX' 'SDRE' 'SWBB' 'SNAU' 'SIJG' 'SBAN' 'SNPJ' 'SDBA'
+ 'SNKK' 'SNVB' 'SJRG' 'SIFH' 'SSPQ' 'SNUN' 'SBBW' 'SNBG' 'SDYW' 'SSCT'
+ 'SDHP' 'SDTI' 'SSDO' 'SDJB' 'SSAQ' 'SJCY' 'SJFU' 'SNKI' 'SWOB' 'SBMY'
+ 'SDPY' 'SSQT' 'SWGP' 'SDVL' 'SDPN' 'SSTL' 'SION' 'SDHU' 'SWNB' 'SNAG'
+ 'SNML' 'SDME' 'SNRJ' 'SSQW' 'SNXI' 'SSRZ' 'SDDQ' 'SIPU' 'SWCZ' 'SNEM'
+ 'SSCR' 'SNGU' 'SNSW' 'SNKE' 'SDMV' 'SNYE' 'SNGV' 'SWYH' 'SWUI' 'SSSB'
+ 'SSHS' 'SJCG' 'SNTF' 'SJHR' 'SNAZ' 'SBBZ' 'SNOD' 'SJTO' 'SDBV' 'SNDR'
+ 'SJHG' 'SDOR' 'SNIG' 'SBTK' 'SWKC' 'SDKE' 'SBUF' 'SSTH' 'SNFJ' 'SWDC'
+ 'SNWS' 'SDLO' 'SSCF' 'SNXT' 'SSVN' 'SNUZ' 'SBPN' 'SNAR' 'SWOZ' 'SSUV'
+ 'SWQE' 'SWKF' 'SDGC' 'SNEB' 'SWWF' 'SBOI' 'SSSG' 'SJKI' 'SDNO' 'SWTO'
+ 'SWKN' 'SNTZ' 'SNVI' 'SIAV' 'SNIC']
+2025-06-16 17:51:10,180 utils        INFO     Unique values in satus_investigacao: ['finalizada' 'ativa' '']
+2025-06-16 17:51:10,180 utils        INFO     
+
+2025-06-16 17:51:10,353 utils        INFO     
+
+2025-06-16 17:51:10,354 utils        INFO     Showing unique values for specified columns...
+2025-06-16 17:51:10,355 utils        INFO     Unique values in indicador_investigacao_liberada: ['SIM' 'NÃO']
+2025-06-16 17:51:10,356 utils        INFO     Unique values in indicador_relatorio_publicado: ['NÃO' 'SIM']
+2025-06-16 17:51:10,357 utils        INFO     Unique values in indicador_saida_pista: ['NÃO' 'SIM']
+2025-06-16 17:51:10,358 utils        INFO     
+
+2025-06-16 17:51:10,386 utils        INFO     
+
+2025-06-16 17:51:10,386 utils        INFO     Showing unique values for specified columns...
+2025-06-16 17:51:10,390 utils        INFO     Unique values in indicador_investigacao_liberada: [ True False]
+2025-06-16 17:51:10,391 utils        INFO     Unique values in indicador_relatorio_publicado: [False  True]
+2025-06-16 17:51:10,391 utils        INFO     Unique values in indicador_saida_pista: [False  True]
+2025-06-16 17:51:10,392 utils        INFO     
+

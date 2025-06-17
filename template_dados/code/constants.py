@@ -60,7 +60,6 @@ FLOAT_COLUMNS = [
 ]
 
 INT_COLUMNS = [
-    'id_ocorrencia',
     'quantidade_recomendacoes',
     'quantidade_aeronaves_envolvidas'
 ]
@@ -93,7 +92,6 @@ AERONAVE_RENAME_MAPPING = {
 }
 
 AERONAVE_INT_COLUMNS = [
-    "id_ocorrencia",
     "pmd_aeronave",
     "categoria_pmd",
     "quantidade_assentos",

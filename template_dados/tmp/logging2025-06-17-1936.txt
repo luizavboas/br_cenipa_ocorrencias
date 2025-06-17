@@ -1,0 +1,160 @@
+2025-06-17 19:36:26.599 | INFO     | __main__:<module>:17 - Checking fact table code columns for inconsistencies...
+2025-06-17 19:36:26.677 | WARNING  | utils:check_inconsistences:79 - Column 'latitude_ocorrencia' has missing values.
+2025-06-17 19:36:26.678 | WARNING  | utils:check_inconsistences:79 - Column 'longitude_ocorrencia' has missing values.
+2025-06-17 19:36:26.682 | WARNING  | utils:check_inconsistences:79 - Column 'hora_ocorrencia' has missing values.
+2025-06-17 19:36:26.684 | WARNING  | utils:check_inconsistences:79 - Column 'satus_investigacao' has missing values.
+2025-06-17 19:36:26.686 | WARNING  | utils:check_inconsistences:79 - Column 'id_relatorio' has missing values.
+2025-06-17 19:36:26.687 | WARNING  | utils:check_inconsistences:85 - The id_relatorio has duplicated values. Shouldn't they be unique?
+2025-06-17 19:36:26.688 | WARNING  | utils:check_inconsistences:79 - Column 'data_publicacao_relatorio' has missing values.
+2025-06-17 19:36:27.111 | WARNING  | utils:format_date:180 - time data "2025-04-22" doesn't match format "%d/%m/%Y", at position 1. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-06-17 19:36:27.114 | WARNING  | utils:format_date:180 - time data "2025-04-22" doesn't match format "%d-%m-%Y", at position 1. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-06-17 19:36:27.196 | INFO     | utils:show_uniques:63 - --------------------------------------------------------------------------------------
+2025-06-17 19:36:27.196 | INFO     | utils:show_uniques:64 - Showing unique values for specified columns...
+2025-06-17 19:36:27.197 | INFO     | utils:show_uniques:68 - Unique values in indicador_investigacao_liberada: ['SIM' 'NÃO']
+2025-06-17 19:36:27.199 | INFO     | utils:show_uniques:68 - Unique values in indicador_relatorio_publicado: ['NÃO' 'SIM']
+2025-06-17 19:36:27.200 | INFO     | utils:show_uniques:68 - Unique values in indicador_saida_pista: ['NÃO' 'SIM']
+2025-06-17 19:36:27.243 | INFO     | utils:show_uniques:63 - --------------------------------------------------------------------------------------
+2025-06-17 19:36:27.243 | INFO     | utils:show_uniques:64 - Showing unique values for specified columns...
+2025-06-17 19:36:27.246 | INFO     | utils:show_uniques:68 - Unique values in indicador_investigacao_liberada: [ True]
+2025-06-17 19:36:27.247 | INFO     | utils:show_uniques:68 - Unique values in indicador_relatorio_publicado: [ True]
+2025-06-17 19:36:27.247 | INFO     | utils:show_uniques:68 - Unique values in indicador_saida_pista: [ True]
+2025-06-17 19:36:27.248 | INFO     | __main__:<module>:62 - Reading dimension tables...
+2025-06-17 19:36:27.380 | INFO     | __main__:<module>:87 - Renaming dimension tables...
+2025-06-17 19:36:27.386 | WARNING  | utils:check_inconsistences:74 - The 'id_ocorrencia' column should have unique values.
+2025-06-17 19:36:27.387 | WARNING  | utils:check_inconsistences:75 - 0        False
+1        False
+2        False
+3        False
+4        False
+         ...  
+13895    False
+13896    False
+13897    False
+13898    False
+13899    False
+Name: id_ocorrencia, Length: 13900, dtype: bool
+2025-06-17 19:36:27.389 | WARNING  | utils:check_inconsistences:85 - The id_ocorrencia has duplicated values. Shouldn't they be unique?
+2025-06-17 19:36:27.391 | WARNING  | utils:check_inconsistences:79 - Column 'tipo_ocorrencia' has missing values.
+2025-06-17 19:36:27.393 | WARNING  | utils:check_inconsistences:79 - Column 'categoria_ocorrencia' has missing values.
+2025-06-17 19:36:27.394 | WARNING  | utils:check_inconsistences:79 - Column 'taxonomia_icao' has missing values.
+2025-06-17 19:36:27.510 | WARNING  | utils:check_inconsistences:74 - The 'id_ocorrencia' column should have unique values.
+2025-06-17 19:36:27.511 | WARNING  | utils:check_inconsistences:75 - 0        False
+1        False
+2        False
+3        False
+4        False
+         ...  
+13296    False
+13297    False
+13298    False
+13299    False
+13300    False
+Name: id_ocorrencia, Length: 13301, dtype: bool
+2025-06-17 19:36:27.513 | WARNING  | utils:check_inconsistences:85 - The id_ocorrencia has duplicated values. Shouldn't they be unique?
+2025-06-17 19:36:27.515 | WARNING  | utils:check_inconsistences:79 - Column 'id_aeronave' has missing values.
+2025-06-17 19:36:27.516 | WARNING  | utils:check_inconsistences:85 - The id_aeronave has duplicated values. Shouldn't they be unique?
+2025-06-17 19:36:27.518 | WARNING  | utils:check_inconsistences:79 - Column 'categoria_operador' has missing values.
+2025-06-17 19:36:27.520 | WARNING  | utils:check_inconsistences:79 - Column 'tipo_veiculo' has missing values.
+2025-06-17 19:36:27.522 | WARNING  | utils:check_inconsistences:79 - Column 'nome_fabricante' has missing values.
+2025-06-17 19:36:27.524 | WARNING  | utils:check_inconsistences:79 - Column 'nome_modelo' has missing values.
+2025-06-17 19:36:27.526 | WARNING  | utils:check_inconsistences:79 - Column 'tipo_icao' has missing values.
+2025-06-17 19:36:27.527 | WARNING  | utils:check_inconsistences:79 - Column 'tipo_motor' has missing values.
+2025-06-17 19:36:27.528 | WARNING  | utils:check_inconsistences:79 - Column 'quantidade_motores' has missing values.
+2025-06-17 19:36:27.537 | WARNING  | utils:check_inconsistences:79 - Column 'pmd_aeronave' has missing values.
+2025-06-17 19:36:27.538 | WARNING  | utils:check_inconsistences:79 - Column 'categoria_pmd' has missing values.
+2025-06-17 19:36:27.539 | WARNING  | utils:check_inconsistences:79 - Column 'quantidade_assentos' has missing values.
+2025-06-17 19:36:27.540 | WARNING  | utils:check_inconsistences:79 - Column 'ano_fabricacao' has missing values.
+2025-06-17 19:36:27.541 | WARNING  | utils:check_inconsistences:79 - Column 'nome_pais_fabricante' has missing values.
+2025-06-17 19:36:27.542 | WARNING  | utils:check_inconsistences:79 - Column 'nome_pais_registro' has missing values.
+2025-06-17 19:36:27.543 | WARNING  | utils:check_inconsistences:79 - Column 'categoria_registro' has missing values.
+2025-06-17 19:36:27.544 | WARNING  | utils:check_inconsistences:79 - Column 'segmento_registro' has missing values.
+2025-06-17 19:36:27.546 | WARNING  | utils:check_inconsistences:79 - Column 'voo_origem' has missing values.
+2025-06-17 19:36:27.547 | WARNING  | utils:check_inconsistences:79 - Column 'voo_destino' has missing values.
+2025-06-17 19:36:27.548 | WARNING  | utils:check_inconsistences:79 - Column 'fase_operacao' has missing values.
+2025-06-17 19:36:27.549 | WARNING  | utils:check_inconsistences:79 - Column 'tipo_operacao' has missing values.
+2025-06-17 19:36:27.550 | WARNING  | utils:check_inconsistences:79 - Column 'nivel_dano' has missing values.
+2025-06-17 19:36:27.552 | WARNING  | utils:check_inconsistences:79 - Column 'quantidade_fatalidades' has missing values.
+2025-06-17 19:36:28.165 | WARNING  | utils:check_inconsistences:74 - The 'id_ocorrencia' column should have unique values.
+2025-06-17 19:36:28.166 | WARNING  | utils:check_inconsistences:75 - 0       False
+1        True
+2        True
+3        True
+4        True
+        ...  
+8608     True
+8609    False
+8610     True
+8611     True
+8612     True
+Name: id_ocorrencia, Length: 8613, dtype: bool
+2025-06-17 19:36:28.168 | WARNING  | utils:check_inconsistences:85 - The id_ocorrencia has duplicated values. Shouldn't they be unique?
+2025-06-17 19:36:28.280 | WARNING  | utils:check_inconsistences:74 - The 'id_ocorrencia' column should have unique values.
+2025-06-17 19:36:28.308 | WARNING  | utils:check_inconsistences:75 - 0       False
+1       False
+2        True
+3       False
+4        True
+        ...  
+3383    False
+3384    False
+3385    False
+3386    False
+3387    False
+Name: id_ocorrencia, Length: 3388, dtype: bool
+2025-06-17 19:36:28.310 | WARNING  | utils:check_inconsistences:79 - Column 'id_ocorrencia' has missing values.
+2025-06-17 19:36:28.311 | WARNING  | utils:check_inconsistences:85 - The id_ocorrencia has duplicated values. Shouldn't they be unique?
+2025-06-17 19:36:28.312 | WARNING  | utils:check_inconsistences:79 - Column 'id_recomendacao' has missing values.
+2025-06-17 19:36:28.313 | WARNING  | utils:check_inconsistences:85 - The id_recomendacao has duplicated values. Shouldn't they be unique?
+2025-06-17 19:36:28.314 | WARNING  | utils:check_inconsistences:79 - Column 'data_assinatura' has missing values.
+2025-06-17 19:36:28.315 | WARNING  | utils:check_inconsistences:79 - Column 'data_encaminhamento' has missing values.
+2025-06-17 19:36:28.316 | WARNING  | utils:check_inconsistences:79 - Column 'data_feedback' has missing values.
+2025-06-17 19:36:28.318 | WARNING  | utils:check_inconsistences:79 - Column 'descricao' has missing values.
+2025-06-17 19:36:28.319 | WARNING  | utils:check_inconsistences:79 - Column 'status' has missing values.
+2025-06-17 19:36:28.321 | WARNING  | utils:check_inconsistences:79 - Column 'sigla_destinatario' has missing values.
+2025-06-17 19:36:28.323 | WARNING  | utils:check_inconsistences:79 - Column 'nome_destinatario' has missing values.
+2025-06-17 19:36:28.433 | WARNING  | utils:format_date:180 - time data "2025-04-22" doesn't match format "%d/%m/%Y", at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-06-17 19:36:28.434 | WARNING  | utils:format_date:180 - time data "2025-04-22" doesn't match format "%d-%m-%Y", at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-06-17 19:36:28.436 | WARNING  | utils:format_date:180 - time data "de Segurança em tela. Os RIS em questão serão verificados nas próximas auditorias de" doesn't match format "%Y-%m-%d", at position 333. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-06-17 19:36:28.438 | WARNING  | utils:format_date:180 - time data "2025-04-22" doesn't match format "%Y/%m/%d", at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-06-17 19:36:28.448 | WARNING  | utils:format_date:180 - time data "2025-04-23" doesn't match format "%d/%m/%Y", at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-06-17 19:36:28.449 | WARNING  | utils:format_date:180 - time data "2025-04-23" doesn't match format "%d-%m-%Y", at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-06-17 19:36:28.451 | WARNING  | utils:format_date:180 - time data "acompanhamento dessas organizações de manutenção, conforme plano de trabalho de supervisão da agência.""" doesn't match format "%Y-%m-%d", at position 370. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-06-17 19:36:28.453 | WARNING  | utils:format_date:180 - time data "2025-04-23" doesn't match format "%Y/%m/%d", at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-06-17 19:36:28.462 | WARNING  | utils:format_date:180 - time data "2025-03-07" doesn't match format "%d/%m/%Y", at position 1. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-06-17 19:36:28.463 | WARNING  | utils:format_date:180 - time data "2025-03-07" doesn't match format "%d-%m-%Y", at position 1. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.

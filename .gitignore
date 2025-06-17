@@ -77,4 +77,5 @@ env.bak/
 venv.bak/
 
 # Temp files
-*.csv
+.csv
+.txt

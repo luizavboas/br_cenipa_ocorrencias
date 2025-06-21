@@ -77,6 +77,11 @@ env.bak/
 venv.bak/
 
 # Temp files
-.csv
-.txt
-.json
+*.csv
+*.txt
+*.json
+
+
+*.pyc
+nohup.out
+.orion/

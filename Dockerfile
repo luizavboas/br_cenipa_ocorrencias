@@ -56,3 +56,19 @@ dbt deps && \
 mkdir -p /opt/prefect/app/bases && \
 mkdir -p /root/.basedosdados/templates && \
 mkdir -p /root/.basedosdados/credentials/
+
+
+
+# - Bibliotecas necessarias para o chromedriver:
+RUN apt-get install -y libglib2.0-0
+
+RUN apt-get install -y libnss3
+
+RUN apt-get install -y libgconf-2-4
+
+RUN apt-get install -y libfontconfig1
+
+# - Necessario instalar o google chrome por causa do selenium:
+RUN apt-get install -y wget
+RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN apt-get install -y ./google-chrome-stable_current_amd64.deb

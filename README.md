@@ -25,6 +25,7 @@ Para a construção de um "script" de navegação automatizado e scraping com Se
 Portanto, a extração dos dados pode ser feita de dois modos:
 1. API: usando o endpoint `dados.gov.br/dados/api/publico/conjuntos-dados/{API_DATASET_ID}` com o ID do conjunto de Ocorrências Aeronáuticas e a `API_KEY` obtida pelo procedimento descrito em [Como acessar a API do Portal de Dados Abertos com o perfil de consumidor](https://dados.gov.br/dados/conteudo/como-acessar-a-api-do-portal-de-dados-abertos-com-o-perfil-de-consumidor)
 2. SCRAPE: Usando Selenium para automatizar a navegação pela página do conjunto no Portal de Dados Abertos.
+
 Para cada um, um valor diferente deve ser atribuído à variável de ambiente `EXTRACTION_MODE`, como mostram as instruções que seguem.
 A orquestração do fluxo utiliza o Prefect, podendo ser feita:
 1. [Localmente](https://docs.prefect.io/v3/get-started/quickstart#open-source);

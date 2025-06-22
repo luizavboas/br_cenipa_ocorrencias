@@ -1,74 +1,60 @@
-# Build arguments
-ARG PYTHON_VERSION=3.10-slim
-
 # Python version: 3.10
-FROM python:${PYTHON_VERSION}
+FROM python:3.10-slim
 
-# Configure environment
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# Environment
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-
-# Install gcc, Google Chrome, CLI tools, git, R and others libs Firefox
-RUN apt-get update && \
-    apt-get install --no-install-recommends -y wget gnupg && \
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list && \
-    apt-get update && \
-    apt-get install --no-install-recommends -y \
-    build-essential \
-    curl \
-    freetds-dev \
-    ftp \
-    gcc \
-    google-chrome-stable \
-    libcrypto++-dev \
-    libssl-dev \
-    p7zip-full \
-    python3-dev \
-    traceroute \
-    wget \
-    tesseract-ocr \
-    python3-opencv \
-    git \
-    bzip2 \
-    libxtst6 \
-    libgtk-3-0 \
-    libx11-xcb-dev \
-    libdbus-glib-1-2 \
-    libxt6 \
-    libpci-dev \
-    && \
-    apt-get install -y r-base && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Setup virtual environment and prefect
-ENV VIRTUAL_ENV=/opt/venv
-RUN python3 -m venv $VIRTUAL_ENV
+ENV VIRTUAL_ENV=.venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-RUN pip install --no-cache-dir --upgrade "pip>=21.2.4" "poetry==1.8.5"
+
+# Install gcc, Google Chrome, CLI tools, git
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
+        wget \
+        curl \
+        gnupg \
+        build-essential \
+        git \
+        libglib2.0-0 \
+        libnss3 \
+        libgconf-2-4 \
+        libfontconfig1 \
+        libxtst6 \
+        libgtk-3-0 \
+        libx11-xcb-dev \
+        libdbus-glib-1-2 \
+        libxt6 \
+        libpci-dev \
+        bzip2 \
+    && wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
+    && apt-get update \
+    && apt-get install --no-install-recommends -y google-chrome-stable \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Virtualenv creation and activation
+RUN python3 -m venv $VIRTUAL_ENV
+RUN echo "Creating Virtualenv in $VIRTUAL_ENV"
+
+# Instal Poetry and pip
+RUN pip install --no-cache-dir --upgrade pip poetry
+
+# Define working dir
 WORKDIR /app
+
 COPY . .
-RUN poetry install && \
-dbt deps && \
-mkdir -p /opt/prefect/app/bases && \
-mkdir -p /root/.basedosdados/templates && \
-mkdir -p /root/.basedosdados/credentials/
 
+# Install Python dependencies (depends on the method: poetry or via requirements.txt)
+RUN if [ -f "pyproject.toml" ]; then poetry install --no-root; fi
+RUN if [ -f "requirements.txt" ]; then pip install --no-cache-dir -r requirements.txt; fi
 
+RUN mkdir -p .prefect/app/bases
+RUN mkdir -p .venv
 
-# - Bibliotecas necessarias para o chromedriver:
-RUN apt-get install -y libglib2.0-0
+# Prefect Server
+EXPOSE 4200
 
-RUN apt-get install -y libnss3
-
-RUN apt-get install -y libgconf-2-4
-
-RUN apt-get install -y libfontconfig1
-
-# - Necessario instalar o google chrome por causa do selenium:
-RUN apt-get install -y wget
-RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
+# Start command
+CMD ["bash", "startup.sh"]

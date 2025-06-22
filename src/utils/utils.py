@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
 """
-General purpose functions for the br_cenipa project
+General utility functions for the br_cenipa project.
+
+This module provides helper functions for webscraping, file handling, data formatting,
+consistency checks, and uploading data to Google Cloud Storage in chunks.
 """
 
 import os
+import io
 import re
 import logging
-import dotenv
+import math
+from google.cloud import storage
 from loguru import logger
 import pandas as pd
 from typing import List
-from pathlib import Path
-from datetime import datetime
 
 # Wehscraping option libs
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -27,15 +29,14 @@ import requests
 # Internals
 from src.constants import constants
 
-# file_handler = logging.FileHandler(os.path.join(constants.ROOT_DIR.value, 'tmp',f"logging{datetime.now().strftime('%Y-%m-%d-%H%M')}.txt"))
-
-# logger.add(file_handler,   
-#            level='INFO')
-
 logging.basicConfig(level=logging.INFO)
 
 def set_driver():
     """
+    Initializes and returns a Selenium Chrome WebDriver in headless mode with custom download preferences.
+    
+    Returns:
+        webdriver.Chrome: Configured Chrome WebDriver instance.
     """
     options = Options()
     options.add_argument("--headless") 
@@ -49,7 +50,12 @@ def set_driver():
 
 def download_table_to_csv(table_name, table_url, table_path=constants.INPUT_DIR_PATH.value):
     """
-        Downloads a table from the CENIPA dataset and saves it as a CSV file. 
+    Downloads a table from a given URL and saves it as a CSV file in the specified path.
+
+    Args:
+        table_name (str): Name of the table (used as file name).
+        table_url (str): URL to download the table from.
+        table_path (str, optional): Directory to save the CSV file. Defaults to constants.INPUT_DIR_PATH.value.
     """
     try:
         response = requests.get(table_url)
@@ -68,7 +74,8 @@ def download_table_to_csv(table_name, table_url, table_path=constants.INPUT_DIR_
     
 def correct_csv_encoding():
     """
-        Corrects the encoding of CSV files in the input directory from 'latin1' to 'utf-8'.
+    Converts the encoding of all CSV files in the input directory from 'latin1' to 'utf-8'.
+    Overwrites the original files.
     """
     logging.info("Correcting CSV file encodings from 'latin1' to 'utf-8'...")
     print("Correcting CSV file encodings from 'latin1' to 'utf-8'...")
@@ -78,10 +85,13 @@ def correct_csv_encoding():
             pd.read_csv(file_path, sep=";", encoding="latin1")\
             .to_csv(file_path, sep=";", encoding="utf-8", index=False)
 
-
 def show_uniques(df, columns):
     """
-        Displays unique values for specified columns in the dataset.
+    Displays and logs unique values for the specified columns in the given DataFrame.
+
+    Args:
+        df (pd.DataFrame): The DataFrame to analyze.
+        columns (list): List of column names to show unique values for.
     """
     logging.info('-----------------------------------------------------------------------------')
     logging.info("Showing unique values for specified columns...")
@@ -93,9 +103,15 @@ def show_uniques(df, columns):
             logging.info(f"Unique values in {col}: {unique_values}")
             print(f"Unique values in {col}: {unique_values}")
 
-## Inconsistencies
 def check_inconsistences(dataframe:pd.DataFrame, primary_key:bool=False):
-    # Check for unique values in the 'id_ocorrencia' column
+    """
+    Checks for inconsistencies in the DataFrame, such as duplicate rows, missing values,
+    and non-unique primary keys. Logs and prints warnings if inconsistencies are found.
+
+    Args:
+        dataframe (pd.DataFrame): The DataFrame to check.
+        primary_key (bool, optional): If True, checks uniqueness of 'id_ocorrencia'. Defaults to False.
+    """
     if primary_key:
         if not dataframe['id_ocorrencia'].is_unique:
             logging.warning("The 'id_ocorrencia' column should have unique values.")
@@ -107,31 +123,33 @@ def check_inconsistences(dataframe:pd.DataFrame, primary_key:bool=False):
         print("The dataframe has duplicated rows:")
         logging.warning(dataframe[dataframe.duplicated()])
         print(dataframe[dataframe.duplicated()])
-    # Check for missing values in the columns
     for col in dataframe.columns:
         if dataframe[col].isnull().any():
             logging.warning(f"Column '{col}' has missing values.")
             print(f"Column '{col}' has missing values.")
         if col.startswith('id'):
-            # Check for unique values in the 'id_relatorio' column
             if dataframe[col].is_unique:
                 pass
             else:
                 logging.warning(f"The {col} has duplicated values. Shouldn't they be unique?")
-    # Check for duplicate rows
     if dataframe.duplicated().any():
         logging.warning("There are duplicate rows in the DataFrame.")
         print("There are duplicate rows in the DataFrame.")
         logging.info(dataframe[dataframe.duplicated()])
         print(dataframe[dataframe.duplicated()])
 
-## Formatting String Columns        
-# Convert string columns to lowercase with first letter of each word capitalized (except connectors) 
 def format_string(dataframe:pd.DataFrame, string_columns:List[str]):
+    """
+    Formats string columns: strips whitespace, removes unwanted characters, 
+    applies case formatting, and fills NaNs with empty strings.
+
+    Args:
+        dataframe (pd.DataFrame): The DataFrame to format.
+        string_columns (List[str]): List of column names to format as strings.
+    """
     try:
         for col in string_columns:
             try:
-
                 dataframe[col] = dataframe[col]\
                     .astype(str)\
                     .str.strip()\
@@ -160,8 +178,16 @@ def format_string(dataframe:pd.DataFrame, string_columns:List[str]):
         logging.error(f"Unable to cast columns to string type due to: {e}\nStopped at {col} column.")
         print(f"Unable to cast columns to string type due to: {e}\nStopped at {col} column.")
 
-## Formatting float columns
 def transform_lat_long(value:str):
+    """
+    Transforms a latitude or longitude string to a standardized numeric format.
+
+    Args:
+        value (str): The latitude or longitude value as a string.
+
+    Returns:
+        str: The transformed value.
+    """
     extraction = re.findall(r'-?[\d\.]+', value)
     if extraction:
         value_match = re.match(r'(^-?\d+)([\.\d]+)', extraction[0])
@@ -180,6 +206,14 @@ def transform_lat_long(value:str):
         return value
 
 def format_floats(dataframe:pd.DataFrame, float_columns:List[str]):
+    """
+    Formats float columns: strips whitespace, replaces NaNs, normalizes decimal separators,
+    and casts columns to float type.
+
+    Args:
+        dataframe (pd.DataFrame): The DataFrame to format.
+        float_columns (List[str]): List of column names to format as floats.
+    """
     try:
         for col in float_columns:
             dataframe[col] = dataframe[col]\
@@ -199,9 +233,14 @@ def format_floats(dataframe:pd.DataFrame, float_columns:List[str]):
         logging.error(f"Unable to cast columns to float type due to: {e}\nStopped at {col} column.")
         print(f"Unable to cast columns to float type due to: {e}\nStopped at {col} column.")
 
-## Formatting Date Columns
-# Convert date columns to datetime format
 def format_date(dataframe:pd.DataFrame, date_columns:List[str]):
+    """
+    Converts date columns to a standardized 'YYYY-MM-DD' string format.
+
+    Args:
+        dataframe (pd.DataFrame): The DataFrame to format.
+        date_columns (List[str]): List of column names to format as dates.
+    """
     try:
         for col in date_columns:
             try:
@@ -228,8 +267,14 @@ def format_date(dataframe:pd.DataFrame, date_columns:List[str]):
         logging.error(f"Unable to cast columns to date type due to: {e}\nStopped at {col} column.")
         print(f"Unable to cast columns to date type due to: {e}\nStopped at {col} column.")
 
-## Formatting Timestamp Columns
 def format_time(dataframe:pd.DataFrame, timestamp_columns:List[str]):
+    """
+    Converts timestamp columns to a standardized 'HH:MM:SS' string format.
+
+    Args:
+        dataframe (pd.DataFrame): The DataFrame to format.
+        timestamp_columns (List[str]): List of column names to format as timestamps.
+    """
     try:
         for col in timestamp_columns:
             try:
@@ -248,9 +293,14 @@ def format_time(dataframe:pd.DataFrame, timestamp_columns:List[str]):
         logging.error(f"Unable to cast columns to timestamp type due to: {e}\nStopped at {col} column.")
         print(f"Unable to cast columns to timestamp type due to: {e}\nStopped at {col} column.")
 
-## Formatting Boolean Columns
-# Convert boolean columns to boolean type
 def format_bools(dataframe:pd.DataFrame, bool_columns:List[str]):
+    """
+    Converts boolean columns to Python bool type, mapping 'sim' to True and 'não' to False.
+
+    Args:
+        dataframe (pd.DataFrame): The DataFrame to format.
+        bool_columns (List[str]): List of column names to format as booleans.
+    """
     try:
         for col in bool_columns:
             try:
@@ -268,3 +318,33 @@ def format_bools(dataframe:pd.DataFrame, bool_columns:List[str]):
     except Exception as e:
         logging.error(f"Unable to cast columns to bool type due to: {e}\nStopped at {col} column.")
         print(f"Unable to cast columns to bool type due to: {e}\nStopped at {col} column.")
+
+def upload_dataframe_chunks_to_gcs(
+    dataframe: pd.DataFrame,
+    blob_prefix: str,
+    bucket_name: str=os.getenv("GCP_BUCKET", "br_cenipa"),
+    chunk_size: int = 100_000):
+    """
+    Splits a DataFrame into chunks and uploads each chunk as a Parquet file to Google Cloud Storage.
+
+    Args:
+        dataframe (pd.DataFrame): The DataFrame to upload.
+        blob_prefix (str): Prefix for the blob (file) name in GCS.
+        bucket_name (str, optional): Name of the GCS bucket. Defaults to value from environment variable 'GCP_BUCKET'.
+        chunk_size (int, optional): Number of rows per chunk/file. Defaults to 100,000.
+    """
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+    num_chunks = math.ceil(len(dataframe) / chunk_size)
+
+    for i in range(num_chunks):
+        start = i * chunk_size
+        end = min((i + 1) * chunk_size, len(dataframe))
+        chunk = dataframe.iloc[start:end]
+        buffer = io.BytesIO()
+        chunk.to_parquet(buffer, index=False)
+        buffer.seek(0)
+        blob_name = f"{blob_prefix}_part{i+1}.parquet"
+        blob = bucket.blob(blob_name)
+        blob.upload_from_file(buffer, content_type='application/octet-stream')
+        logging.info(f"Chunk {i+1}/{num_chunks} enviado para gs://{bucket_name}/{blob_name}")

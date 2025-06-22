@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-Constant values for the datasets projects
+Constant values and configuration for the br_cenipa project.
+
+This module defines all constant values, mappings, and environment variables
+used throughout the br_cenipa data pipeline.
 """
+
 import os
-import dotenv
 from enum import Enum
 from pathlib import Path
 
@@ -11,16 +14,16 @@ class constants(Enum):  # pylint: disable=c0103
     """
     Constant values for the br_cenipa project
     """
-    ROOT_DIR = os.environ.get("ROOT_DIR")
-    INPUT_DIR_PATH = os.path.join(ROOT_DIR,"input")
-    OUTPUT_DIR_PATH = os.path.join(ROOT_DIR,"output")
-    EXECUTION_MODE = os.environ.get("EXECUTION_MODE")
-    EXTRACTION_MODE = os.environ.get("EXTRACTION_MODE")
+    ROOT_DIR = os.getenv("ROOT_DIR",".")
+    INPUT_DIR_PATH = os.getenv("INPUT_DIR_PATH","input")
+    OUTPUT_DIR_PATH = os.getenv("OUTPUT_DIR_PATH", "output")
+    EXECUTION_MODE = os.getenv("EXECUTION_MODE","local")
+    EXTRACTION_MODE = os.getenv("EXTRACTION_MODE", "API")
 
     # Constants for API option
     API_DATASET_ID = "623d13d9-3465-4be0-82e7-c13b78b08282"
     API_URL = "https://dados.gov.br/dados/api/publico"
-    API_KEY = os.environ.get("API_KEY")
+    API_KEY = os.getenv("API_KEY","")
     
     # Constants for webscraping option
     DADOS_GOV_DATASET_NAME = "ocorrencias-aeronauticas-da-aviacao-civil-brasileira"
@@ -40,7 +43,7 @@ class constants(Enum):  # pylint: disable=c0103
             'ocorrencia_dia':'data_ocorrencia', 
             'ocorrencia_hora':'hora_ocorrencia',
             'investigacao_aeronave_liberada':'indicador_investigacao_liberada',
-            'investigacao_status':'satus_investigacao',
+            'investigacao_status':'status_investigacao',
             'divulgacao_relatorio_numero':'id_relatorio',
             'divulgacao_relatorio_publicado':'indicador_relatorio_publicado', 
             'divulgacao_dia_publicacao':'data_publicacao_relatorio',
@@ -55,7 +58,7 @@ class constants(Enum):  # pylint: disable=c0103
         'sigla_uf', 
         'nome_pais',
         'sigla_aerodromo', 
-        'satus_investigacao', 
+        'status_investigacao', 
         'id_relatorio'
     ]
 

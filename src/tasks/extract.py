@@ -1,22 +1,30 @@
 # -*- coding: utf-8 -*-
 """
-Tasks para dataset do CENIPA (Centro de Investigação e Prevenção de Acidentes Aeronáuticos).
+Extraction tasks for the br_cenipa dataset.
+
+This module contains Prefect tasks for scraping and downloading data from CENIPA sources,
+including both API and webscraping methods.
 """
+
 import os
 import json
 import time
 import logging
 import requests
-import pandas as pd
 from prefect import task
-from prefect.logging import get_run_logger
-from pathlib import Path
 
 from src.constants import constants
 from src.utils.utils import *
 
 @task
 def scrape_data():
+    """
+    Uses Selenium to scrape the CENIPA dataset web page, interact with the UI to reveal resources,
+    and trigger downloads of available resources.
+
+    Returns:
+        None
+    """
     logging.info("Setting driver up...")
     driver = set_driver()
     logging.info("Fetching url...")
@@ -64,6 +72,12 @@ def scrape_data():
 
 @task
 def get_cenipa_metadata():
+    """
+    Fetches metadata for the CENIPA dataset from the public API and saves it as a JSON file.
+
+    Returns:
+        dict: The metadata dictionary loaded from the API response.
+    """
     print("Getting metadata from API...")
     HEADERS = {
         "accept":"application/json",
@@ -81,6 +95,12 @@ def get_cenipa_metadata():
 
 @task           
 def get_cenipa_data():
+    """
+    Downloads all CSV resources listed in the CENIPA metadata JSON file and corrects their encoding.
+
+    Returns:
+        None
+    """
     with open(os.path.join(constants.INPUT_DIR_PATH.value,"cenipa_metadata.json"), "r") as metadata_file:
         metadata = json.load(metadata_file)
         for resource in metadata["recursos"]:

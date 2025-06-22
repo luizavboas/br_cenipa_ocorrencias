@@ -2,30 +2,32 @@
 """
 Constant values for the datasets projects
 """
-from enum import Enum
 import os
+import dotenv
+from enum import Enum
 from pathlib import Path
 
 class constants(Enum):  # pylint: disable=c0103
     """
     Constant values for the br_cenipa project
     """
-    ROOT_DIR = Path(os.path.dirname(__file__)).parent
-    INPUT_DIR_PATH = os.path.join(Path(os.path.dirname(__file__)).parent,"input")
-    OUTPUT_DIR_PATH = os.path.join(Path(os.path.dirname(__file__)).parent,"output")
+    ROOT_DIR = os.environ.get("ROOT_DIR")
+    INPUT_DIR_PATH = os.path.join(ROOT_DIR,"input")
+    OUTPUT_DIR_PATH = os.path.join(ROOT_DIR,"output")
+    EXECUTION_MODE = os.environ.get("EXECUTION_MODE")
+    EXTRACTION_MODE = os.environ.get("EXTRACTION_MODE")
 
     # Constants for API option
     API_DATASET_ID = "623d13d9-3465-4be0-82e7-c13b78b08282"
     API_URL = "https://dados.gov.br/dados/api/publico"
-    API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkNDRMMXkzcGxRTlFIX1pvU2VTb28yU0t3TjFzUkNBTS13LTRYZ2Ywc0d3dFVveW1ZNzJMQXNUakZtNlhFbWZhMm8taWozYWJicGlxMnN3eiIsImlhdCI6MTc0OTkzNzUwOH0.__f5sSiipPmb_gwhGIA06UgCmYbR7UWZ2Li8LH-KI_E"
-
+    API_KEY = os.environ.get("API_KEY")
+    
     # Constants for webscraping option
     DADOS_GOV_DATASET_NAME = "ocorrencias-aeronauticas-da-aviacao-civil-brasileira"
     DADOS_GOV_URL = "https://dados.gov.br/dados/conjuntos-dados"
     RESOURCES_XPATH = "//*[@id='collapse-recursos']/div[contains(@class, 'row flex mb-5')]/div[contains(@class, 'col-10')]"
     BUTTONS_XPATH = "//*[@id='collapse-recursos']/div[contains(@class, 'row flex mb-5')]/div[contains(@class, 'col-10')]//button[@id='btnDownloadUrl']"
-    
-    
+        
     RENAME_MAPPING = {
             'codigo_ocorrencia': 'id_ocorrencia',                               # NULLABLE FALSE
             'ocorrencia_classificacao':'classificacao_ocorrencia',              
@@ -84,7 +86,7 @@ class constants(Enum):  # pylint: disable=c0103
     ## Aeronave
     AERONAVE_RENAME_MAPPING = {
         "codigo_ocorrencia2":"id_ocorrencia",
-        "aeronave_matricula":"id_aeronave",
+        "aeronave_matricula":"matricula_aeronave",
         "aeronave_operador_categoria":"categoria_operador",
         "aeronave_tipo_veiculo":"tipo_veiculo",
         "aeronave_fabricante":"nome_fabricante",
@@ -117,7 +119,7 @@ class constants(Enum):  # pylint: disable=c0103
     ]
 
     AERONAVE_STR_COLUMNS = [
-        "id_aeronave",
+        "matricula_aeronave",
         "categoria_operador",
         "tipo_veiculo",
         "nome_fabricante",

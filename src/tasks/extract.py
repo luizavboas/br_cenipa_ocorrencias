@@ -9,10 +9,11 @@ import logging
 import requests
 import pandas as pd
 from prefect import task
+from prefect.logging import get_run_logger
 from pathlib import Path
 
-from constants import constants
-from utils import *
+from src.constants import constants
+from src.utils.utils import *
 
 @task
 def scrape_data():
@@ -61,7 +62,7 @@ def scrape_data():
 
     driver.close()
 
-@task()
+@task
 def get_cenipa_metadata():
     print("Getting metadata from API...")
     HEADERS = {
@@ -71,7 +72,7 @@ def get_cenipa_metadata():
 
     response = requests.get(
         headers = HEADERS,
-        url = f"{constants.API_URL.value}/conjuntos-dados/{constants.DATASET_ID.value}")
+        url = f"{constants.API_URL.value}/conjuntos-dados/{constants.API_DATASET_ID.value}")
 
     with open(os.path.join(constants.INPUT_DIR_PATH.value,"cenipa_metadata.json"), "w") as f:
         json.dump(response.json(), f, indent=4)

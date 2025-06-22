@@ -6,6 +6,7 @@ General purpose functions for the br_cenipa project
 import os
 import re
 import logging
+import dotenv
 from loguru import logger
 import pandas as pd
 from typing import List
@@ -24,7 +25,7 @@ import json
 import requests
 
 # Internals
-from constants import constants
+from src.constants import constants
 
 # file_handler = logging.FileHandler(os.path.join(constants.ROOT_DIR.value, 'tmp',f"logging{datetime.now().strftime('%Y-%m-%d-%H%M')}.txt"))
 
@@ -93,13 +94,14 @@ def show_uniques(df, columns):
             print(f"Unique values in {col}: {unique_values}")
 
 ## Inconsistencies
-def check_inconsistences(dataframe:pd.DataFrame):
+def check_inconsistences(dataframe:pd.DataFrame, primary_key:bool=False):
     # Check for unique values in the 'id_ocorrencia' column
-    if not dataframe['id_ocorrencia'].is_unique:
-        logging.warning("The 'id_ocorrencia' column should have unique values.")
-        print("The 'id_ocorrencia' column should have unique values.")
-        logging.warning(dataframe.loc[dataframe['id_ocorrencia'].duplicated(),['id_ocorrencia']])
-        print(dataframe.loc[dataframe['id_ocorrencia'].duplicated(),['id_ocorrencia']])
+    if primary_key:
+        if not dataframe['id_ocorrencia'].is_unique:
+            logging.warning("The 'id_ocorrencia' column should have unique values.")
+            print("The 'id_ocorrencia' column should have unique values.")
+            logging.warning(dataframe.loc[dataframe['id_ocorrencia'].duplicated(),['id_ocorrencia']])
+            print(dataframe.loc[dataframe['id_ocorrencia'].duplicated(),['id_ocorrencia']])
     if not dataframe[dataframe.duplicated()].empty:
         logging.warning("The dataframe has duplicated rows:")
         print("The dataframe has duplicated rows:")

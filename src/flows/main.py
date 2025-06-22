@@ -2,21 +2,25 @@
 """
 Flows for br_cenipa
 """
-import dotenv
+import os
+import logging
 from prefect import flow, task
-from constants import constants
-from extract_tasks import *
-from transform_tasks import *
-
-dotenv.load_dotenv(constants.ROOT_DIR.value)
+from src.constants import constants
+from src.tasks.extract import *
+from src.tasks.transform import *
 
 @flow
 def br_cenipa_extract_flow():
-    if EXTRACT_OPTION == 'API':
+    print(f"Extractioin mode: {constants.EXTRACTION_MODE.value}")
+    if constants.EXTRACTION_MODE.value == 'API':
         get_cenipa_metadata()
         get_cenipa_data()
-    elif EXTRACT_OPTION == 'SCRAPE':
+    elif constants.EXTRACTION_MODE.value == 'SCRAPE':
         scrape_data()
+    else:
+        print("No extraction mode was chosen. Assuming API mode")
+        get_cenipa_metadata()
+        get_cenipa_data()
 
 @flow
 def br_cenipa_transform_flow():

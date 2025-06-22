@@ -6,6 +6,7 @@ Este repositório contém um pipeline para extração, transformação e carga (
 
 ## Índice
 
+- [Dados de Ocorrências Aeronáuticas](#dados-de-ocorrências-aeronáuticas)
 - [Pré-requisitos](#pré-requisitos)
 - [Instalação](#instalação)
 - [Configuração](#configuração)
@@ -15,9 +16,20 @@ Este repositório contém um pipeline para extração, transformação e carga (
 - [Credenciais GCP para Upload](#credenciais-gcp-para-upload)
 - [Uso com Docker & Containers](#uso-com-docker--containers)
 - [Estrutura do Projeto](#estrutura-do-projeto)
-- [Contribuindo](#contribuindo)
-- [Licença](#licença)
 
+---
+## Dados de Ocorrências Aeronáuticas
+
+O conjunto de Dados de Ocorrências Aeronáuticas está indexado no [Portal de Dados Abertos do Governo](https://dados.gov.br/dados/conjuntos-dados/ocorrencias-aeronauticas-da-aviacao-civil-brasileira) e é gerenciado pelo  é gerenciada pelo Centro de Investigação e Prevenção de Acidentes Aeronáuticos (CENIPA). 
+Para a construção de um "script" de navegação automatizado e scraping com Selenium, foi feita sua inspeção do HTML da página inicial do conjunto no portal e das requests envolvidas no download dos recursos com um plugin do Postman: [Postman Interceptor](https://learning.postman.com/docs/sending-requests/capturing-request-data/interceptor/). Com ele, foi identificada a API pública do Portal de Dados, que permite consultar conjuntos, extrair arquivos e mais (consultar a [Dcosumentação](https://dados.gov.br/swagger-ui/index.html) para mais). 
+Portanto, a extração dos dados pode ser feita de dois modos:
+1. API: usando o endpoint `dados.gov.br/dados/api/publico/conjuntos-dados/{API_DATASET_ID}` com o ID do conjunto de Ocorrências Aeronáuticas e a `API_KEY` obtida pelo procedimento descrito em [Como acessar a API do Portal de Dados Abertos com o perfil de consumidor](https://dados.gov.br/dados/conteudo/como-acessar-a-api-do-portal-de-dados-abertos-com-o-perfil-de-consumidor)
+2. SCRAPE: Usando Selenium para automatizar a navegação pela página do conjunto no Portal de Dados Abertos.
+Para cada um, um valor diferente deve ser atribuído à variável de ambiente `EXTRACTION_MODE`, como mostram as instruções que seguem.
+A orquestração do fluxo utiliza o Prefect, podendo ser feita:
+1. [Localmente](https://docs.prefect.io/v3/get-started/quickstart#open-source);
+2. [Usando um servidor, um _self hosted server_](https://docs.prefect.io/v3/how-to-guides/self-hosted/server-cli)
+Essa opção é configurada na varoável `EXECUTION_MODE`.
 ---
 
 ## Pré-requisitos
@@ -57,10 +69,6 @@ API_KEY=sua_api_key_aqui
 GCP_BUCKET=seu_bucket_gcp    # Necessário para upload
 GOOGLE_APPLICATION_CREDENTIALS=/caminho/para/seu/service-account.json
 ```
-
-**Não faça commit do seu `.env` ou credenciais no versionamento.**  
-O `.env` já está incluído no `.gitignore` e `.dockerignore`.
-
 ---
 
 ## Execução
@@ -92,6 +100,14 @@ Ou, usando Prefect:
 prefect deployment run src.flows.main
 ```
 
+### _Self Hosted Server_
+
+```bash
+export PREFECT_API_URL=http://127.0.0.1:4200/api
+nohup prefect server start &
+sleep 5
+python3 -m src.flows.main
+```
 ---
 
 ## Credenciais GCP para Upload
@@ -112,20 +128,23 @@ Para habilitar o upload para um bucket Google Cloud Storage:
 ---
 
 ## Uso com Docker & Containers
+Um rascunho de Dockerfile foi criado para o caso de se desejar rodar a ETL em container na nuvem. Porém, atente-se ao fato de que serpa necessário adaptar a solução para o uso Docker Compose para rodar o Prefect em um container ou serviço separado.
 
-### Build da imagem
+### Container ETL
+
+#### Build da imagem 
 
 ```bash
 docker build -t br_cenipa .
 ```
 
-### Executando o container
+#### Executando o container
 
 ```bash
 docker run --env-file .env br_cenipa
 ```
 
-- O arquivo `.env` **não** é incluído na imagem (veja `.dockerignore`).
+- O arquivo `.env` **não** é incluído na imagem.
 - O container usará as variáveis de ambiente do `.env` em tempo de execução.
 
 ### Usando Prefect Server com Docker Compose
@@ -173,13 +192,12 @@ br_cenipa/
 │   └── utils/
 │       ├── __init__.py
 │       └── utils.py
-├── .env
+├── .env.example
 ├── .gitignore
 ├── .dockerignore
 ├── config.py
 ├── Dockerfile
 ├── README.md
 ├── requirements.txt
-├── poetry.lock / pyproject.toml
 └── startup.sh
 ```
